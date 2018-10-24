@@ -18,13 +18,14 @@ class ResetPasswordController extends Controller
     |
     */
 
+    use ResetsPasswords;
 
     /**
      * Where to redirect users after resetting their password.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/operations';
 
     /**
      * Create a new controller instance.
@@ -34,25 +35,5 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-    }
-
-    /**
-     * Reset the given user's password.
-     *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string $password
-     * @return void
-     */
-    protected function resetPassword($user, $password)
-    {
-        $user->password = $password;
-
-        $user->setRememberToken(str_random(60));
-
-        $user->save();
-
-        event(new PasswordReset($user));
-
-        $this->guard()->login($user);
     }
 }

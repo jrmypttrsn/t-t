@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,10 +13,22 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::middleware(['auth'])->group(function() {
+   Route::resource('tasks', 'OperationController', [
+      'only' => [
+          'index', 'store', 'update'
+      ]
+   ]);
+});
+
+Route::get('/home', 'HomeController@index');

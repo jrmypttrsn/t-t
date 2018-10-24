@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/tasks';
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -23,6 +30,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('operations');
     }
 }
